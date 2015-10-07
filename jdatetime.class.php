@@ -50,6 +50,7 @@ class jDateTime
     private static $jalali   = true; //Use Jalali Date, If set to false, falls back to gregorian
     private static $convert  = true; //Convert numbers to Farsi characters in utf-8
     private static $timezone = null; //Timezone String e.g Asia/Tehran, Defaults to Server Timezone Settings
+    private static $language = 'farsi'; //Language for month names (farsi,dari,pashtu)
     private static $temp = array();
 
     /**
@@ -65,12 +66,14 @@ class jDateTime
      * @param $convert bool Converts numbers to Farsi
      * @param $jalali bool Converts date to Jalali
      * @param $timezone string Timezone string
+     * @param $language string Language of month names
      */
-    public function __construct($convert = null, $jalali = null, $timezone = null)
+    public function __construct($convert = null, $jalali = null, $timezone = null, $language = null)
     {
         if ( $jalali   !== null ) self::$jalali   = (bool) $jalali;
         if ( $convert  !== null ) self::$convert  = (bool) $convert;
         if ( $timezone !== null ) self::$timezone = $timezone;
+        if ( $language !== null ) self::$language = $language;
     }
 
     /**
@@ -451,9 +454,23 @@ class jDateTime
     private static function getMonthNames($month, $shorten = false, $len = 3)
     {
         // Convert
-        $months = array(
-            'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
-        );
+		switch( self::$language ) {
+			case 'farsi':
+				$months = array(
+				'فروردین', 'اردیبهشت', 'خرداد', 'تیر', 'مرداد', 'شهریور', 'مهر', 'آبان', 'آذر', 'دی', 'بهمن', 'اسفند'
+				);
+				break;
+			case 'dari':
+				$months = array(
+				'حمل', 'ثور', 'جوزا', 'سرطان', 'اسد', 'سنبله', 'میزان', 'عقرب', 'قوس', 'جدی', 'دلو', 'حوت'
+				);
+				break;
+			case 'pashtu':
+				$months = array(
+				'وری', 'غويی', 'غبرګولی', 'چنګاښ', 'زمری', 'وږی', 'تله', 'لړم', 'ليندۍ', 'مرغومی', 'سلواغه', 'كب'
+				);
+				break;
+		}
         $ret    = $months[$month - 1];
 
         // Return

@@ -44,6 +44,20 @@ echo $date->date("c", $time2, false, false, 'Europe/Berlin'); //Outputs: 2010-01
 //Or Iran in Native Time?
 echo "<br />\n";
 echo $date->date("c", $time2, false, true, 'Asia/Tehran'); //Outputs: 1388-10-11T08:30:00+03:30
+echo "<br />\n";
+
+// Dari month names
+$date = new jDateTime(true, true, 'Asia/Tehran', 'dari');
+
+echo $date->date("l j F Y H:i"); // Outputs: پنجشنبه ۱۵ اردیبهشت ۱۳۹۰ ۰۰:۰۰
+echo "<br />\n";
+
+// Pashtu month names
+$date = new jDateTime(true, true, 'Asia/Tehran', 'pashtu');
+
+echo $date->date("l j F Y H:i"); // Outputs: پنجشنبه ۱۵ اردیبهشت ۱۳۹۰ ۰۰:۰۰
+echo "<br />\n";
+
 
 //Just adding routine html tags.
 echo "</body>";
